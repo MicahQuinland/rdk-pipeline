@@ -1,0 +1,13 @@
+{
+  "Version": "1.0",
+  "Parameters": {
+    "RuleName": "rdsapsql008-storage-encrypted-cmk",
+    "Description": "Checks if storage encryption is enabled for your Amazon Relational Database Service (Amazon RDS) DB instances with CMK. The rule is NON_COMPLIANT if storage encryption is not enabled.",
+    "SourceRuntime": "python3.9",
+    "CodeKey": "rdsapsql008-storage-encrypted-cmkus-east-1.zip",
+    "InputParameters": "{\"ExecutionRoleName\": \"AWSRDKLambdaRole\"}",
+    "OptionalParameters": "{}",
+    "SourceEvents": "AWS::RDS::DBInstance"
+  },
+  "Tags": "[]"
+}

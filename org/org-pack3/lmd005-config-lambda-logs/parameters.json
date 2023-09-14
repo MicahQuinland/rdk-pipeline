@@ -1,0 +1,18 @@
+{
+  "Version": "1.0",
+  "Parameters": {
+    "RuleName": "lmd005-config-lambda-logs",
+    "Description": "Checks whether each Lambda function has the permission for logging. Each Lambda functions should have an IAM role with appropriate IAM permissions to publish its Lambda function logs to CloudWatch",
+    "SourceRuntime": "python3.9",
+    "CodeKey": "lmd005-config-lambda-logsus-east-1.zip",
+    "InputParameters": "{\"ExecutionRoleName\": \"AWSRDKLambdaRole\"}",
+    "OptionalParameters": "{}",
+    "SourceEvents": "AWS::Lambda::Function"
+  },
+  "Tags": [
+    {
+      "Key": "RuleType",
+      "Value": "Custom"
+    }
+  ]
+}

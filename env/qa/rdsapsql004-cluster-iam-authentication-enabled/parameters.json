@@ -1,0 +1,14 @@
+{
+  "Version": "1.0",
+  "Parameters": {
+    "RuleName": "rdsapsql004-cluster-iam-authentication-enabled",
+    "Description": "Checks if an Amazon Relational Database Service (Amazon RDS) cluster has AWS Identity and Access Management (IAM) authentication enabled. The rule is NON_COMPLIANT if an Amazon RDS Cluster does not have IAM authentication enabled.",
+    "SourceRuntime": null,
+    "CodeKey": null,
+    "InputParameters": "{}",
+    "OptionalParameters": "{}",
+    "SourceEvents": "AWS::RDS::DBCluster",
+    "SourceIdentifier": "RDS_CLUSTER_IAM_AUTHENTICATION_ENABLED"
+  },
+  "Tags": "[]"
+}

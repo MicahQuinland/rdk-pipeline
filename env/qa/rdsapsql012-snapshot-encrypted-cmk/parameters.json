@@ -1,0 +1,13 @@
+{
+  "Version": "1.0",
+  "Parameters": {
+    "RuleName": "rdsapsql012-snapshot-encrypted-cmk",
+    "Description": "Checks if Amazon Relational Database Service (Amazon RDS) DB snapshots are encrypted with CMK. The rule is NON_COMPLIANT if the Amazon RDS DB snapshots are not encrypted.",
+    "SourceRuntime": "python3.9",
+    "CodeKey": "rdsapsql012-snapshot-encrypted-cmkus-east-1.zip",
+    "InputParameters": "{\"ExecutionRoleName\": \"AWSRDKLambdaRole\"}",
+    "OptionalParameters": "{}",
+    "SourceEvents": "AWS::RDS::DBSnapshot,AWS::RDS::DBClusterSnapshot"
+  },
+  "Tags": "[]"
+}

@@ -1,0 +1,14 @@
+{
+  "Version": "1.0",
+  "Parameters": {
+    "RuleName": "rdsapsql011-snapshots-public-prohibited",
+    "Description": "Checks if Amazon Relational Database Service (Amazon RDS) snapshots are public. The rule is NON_COMPLIANT if any existing and new Amazon RDS snapshots are public.",
+    "SourceRuntime": null,
+    "CodeKey": null,
+    "InputParameters": "{}",
+    "OptionalParameters": "{}",
+    "SourceEvents": "AWS::RDS::DBSnapshot,AWS::RDS::DBClusterSnapshot",
+    "SourceIdentifier": "RDS_SNAPSHOTS_PUBLIC_PROHIBITED"
+  },
+  "Tags": "[]"
+}

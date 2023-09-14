@@ -1,0 +1,18 @@
+{
+  "Version": "1.0",
+  "Parameters": {
+    "RuleName": "iam001-config-trust-policy-confused-deputy",
+    "Description": "Checks if IAM roles have the proper trust policy condition to prevent confused deputy and external access via AWS and Federated Principals",
+    "SourceRuntime": "python3.9",
+    "CodeKey": "iam001-config-trust-policy-confused-deputyus-east-1.zip",
+    "InputParameters": "{\"ExecutionRoleName\": \"AWSRDKLambdaRole\"}",
+    "OptionalParameters": "{}",
+    "SourceEvents": "AWS::IAM::Role"
+  },
+  "Tags": [
+    {
+      "Key": "RuleType",
+      "Value": "Custom"
+    }
+  ]
+}

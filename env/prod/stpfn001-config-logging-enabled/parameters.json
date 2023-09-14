@@ -1,0 +1,19 @@
+{
+  "Version": "1.0",
+  "Parameters": {
+    "RuleName": "stpfn001-config-logging-enabled",
+    "Description": "Checks if AWS Step Functions machine has logging enabled. The rule is NON_COMPLIANT if a state machine does not have logging enabled or the logging configuration is not at the minimum level provided.",
+    "SourceRuntime": null,
+    "CodeKey": null,
+    "InputParameters": "{}",
+    "OptionalParameters": "{\"logLevel\": \"ALL\"}",
+    "SourceEvents": "AWS::StepFunctions::StateMachine",
+    "SourceIdentifier": "STEP_FUNCTIONS_STATE_MACHINE_LOGGING_ENABLED"
+  },
+  "Tags": [
+    {
+      "Key": "RuleType",
+      "Value": "Managed"
+    }
+  ]
+}

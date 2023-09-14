@@ -1,0 +1,13 @@
+{
+  "Version": "1.0",
+  "Parameters": {
+    "RuleName": "rdsapsql005-cluster-encrypted-at-rest-cmk",
+    "Description": "Checks if an Amazon Relational Database Service (Amazon RDS) cluster is encrypted at rest with CMK. The rule is NON_COMPLIANT if an Amazon RDS cluster is not encrypted at rest.",
+    "SourceRuntime": "python3.9",
+    "CodeKey": "rdsapsql005-cluster-encrypted-at-rest-cmkus-east-1.zip",
+    "InputParameters": "{\"ExecutionRoleName\": \"AWSRDKLambdaRole\"}",
+    "OptionalParameters": "{}",
+    "SourceEvents": "AWS::RDS::DBCluster"
+  },
+  "Tags": "[]"
+}

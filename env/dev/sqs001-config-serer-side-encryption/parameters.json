@@ -1,0 +1,18 @@
+{
+  "Version": "1.0",
+  "Parameters": {
+    "RuleName": "sqs001-config-serer-side-encryption",
+    "Description": "Check if SQS Queue has Server-side encryption enabled using SQS or KMS Key, it is marked NON_COMPLIANT if not.",
+    "SourceRuntime": "python3.9",
+    "CodeKey": "sqs001-config-serer-side-encryptionus-east-1.zip",
+    "InputParameters": "{\"ExecutionRoleName\": \"AWSRDKLambdaRole\"}",
+    "OptionalParameters": "{}",
+    "SourceEvents": "AWS::SQS::Queue"
+  },
+  "Tags": [
+    {
+      "Key": "RuleType",
+      "Value": "Custom"
+    }
+  ]
+}

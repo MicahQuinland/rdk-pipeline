@@ -1,0 +1,18 @@
+{
+  "Version": "1.0",
+  "Parameters": {
+    "RuleName": "lmd006-config-detect-function-url",
+    "Description": "Checks if Lambda Function has function URL, if so it is NON_COMPLAINT",
+    "SourceRuntime": "python3.9",
+    "CodeKey": "lmd006-config-detect-function-urlus-east-1.zip",
+    "InputParameters": "{\"ExecutionRoleName\": \"AWSRDKLambdaRole\"}",
+    "OptionalParameters": "{}",
+    "SourceEvents": "AWS::Lambda::Function"
+  },
+  "Tags": [
+    {
+      "Key": "RuleType",
+      "Value": "Custom"
+    }
+  ]
+}

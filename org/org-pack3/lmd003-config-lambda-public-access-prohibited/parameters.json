@@ -1,0 +1,19 @@
+{
+  "Version": "1.0",
+  "Parameters": {
+    "RuleName": "lmd003-config-lambda-public-access-prohibited",
+    "Description": "Checks if the AWS Lambda function policy attached to the Lambda resource prohibits public access. If the Lambda function policy allows public access it is NON_COMPLIANT.",
+    "SourceRuntime": null,
+    "CodeKey": null,
+    "InputParameters": "{}",
+    "OptionalParameters": "{}",
+    "SourceEvents": "AWS::Lambda::Function",
+    "SourceIdentifier": "LAMBDA_FUNCTION_PUBLIC_ACCESS_PROHIBITED"
+  },
+  "Tags": [
+    {
+      "Key": "RuleType",
+      "Value": "Managed"
+    }
+  ]
+}

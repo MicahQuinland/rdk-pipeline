@@ -1,0 +1,14 @@
+{
+  "Version": "1.0",
+  "Parameters": {
+    "RuleName": "rdsapsql006-instance-default-admin-check",
+    "Description": "Checks if an Amazon Relational Database Service (Amazon RDS) database has changed the admin username from its default value. This rule will only run on RDS database instances. The rule is NON_COMPLIANT if the admin username is set to the default value.",
+    "SourceRuntime": null,
+    "CodeKey": null,
+    "InputParameters": "{}",
+    "OptionalParameters": "{}",
+    "SourceEvents": "AWS::RDS::DBInstance",
+    "SourceIdentifier": "RDS_INSTANCE_DEFAULT_ADMIN_CHECK"
+  },
+  "Tags": "[]"
+}

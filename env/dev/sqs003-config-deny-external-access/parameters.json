@@ -1,0 +1,18 @@
+{
+  "Version": "1.0",
+  "Parameters": {
+    "RuleName": "sqs003-config-deny-external-access",
+    "Description": "Check if SQS Queue allows external account access via access policy, if so the queue will be NON_COMPLIANT",
+    "SourceRuntime": "python3.9",
+    "CodeKey": "sqs003-config-deny-external-accessus-east-1.zip",
+    "InputParameters": "{\"ExecutionRoleName\": \"AWSRDKLambdaRole\"}",
+    "OptionalParameters": "{}",
+    "SourceEvents": "AWS::SQS::Queue"
+  },
+  "Tags": [
+    {
+      "Key": "RuleType",
+      "Value": "Custom"
+    }
+  ]
+}

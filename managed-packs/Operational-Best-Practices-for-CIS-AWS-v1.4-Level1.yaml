@@ -1,0 +1,59 @@
+##################################################################################
+#                                                                                 
+#   Conformance Pack:                                                             
+#     Operational Best Practices for CIS AWS Foundations Benchmark Level 1                                   
+#                                                                                 
+#   This conformance pack helps verify compliance with CIS AWS Foundations Benchmark Level 1 requirements.   
+#                                                                                 
+#   See Parameters section for names and descriptions of required parameters.     
+#                                                                                 
+##################################################################################
+
+Parameters:
+  AccessKeysRotatedParamMaxAccessKeyAge:
+    Default: '90'
+    Type: String
+Resources:
+  AccessKeysRotated:
+    Properties:
+      ConfigRuleName: access-keys-rotated
+      InputParameters:
+        maxAccessKeyAge:
+          Fn::If:
+          - accessKeysRotatedParamMaxAccessKeyAge
+          - Ref: AccessKeysRotatedParamMaxAccessKeyAge
+          - Ref: AWS::NoValue
+      Source:
+        Owner: AWS
+        SourceIdentifier: ACCESS_KEYS_ROTATED
+    Type: AWS::Config::ConfigRule
+  CloudTrailCloudWatchLogsEnabled:
+    Properties:
+      ConfigRuleName: cloud-trail-cloud-watch-logs-enabled
+      Source:
+        Owner: AWS
+        SourceIdentifier: CLOUD_TRAIL_CLOUD_WATCH_LOGS_ENABLED
+    Type: AWS::Config::ConfigRule
+  Ec2EbsEncryptionByDefault:
+    Properties:
+      ConfigRuleName: ec2-ebs-encryption-by-default
+      Source:
+        Owner: AWS
+        SourceIdentifier: EC2_EBS_ENCRYPTION_BY_DEFAULT
+    Type: AWS::Config::ConfigRule
+  EncryptedVolumes:
+    Properties:
+      ConfigRuleName: encrypted-volumes
+      Scope:
+        ComplianceResourceTypes:
+        - AWS::EC2::Volume
+      Source:
+        Owner: AWS
+        SourceIdentifier: ENCRYPTED_VOLUMES
+    Type: AWS::Config::ConfigRule
+Conditions:
+  accessKeysRotatedParamMaxAccessKeyAge:
+    Fn::Not:
+    - Fn::Equals:
+      - ''
+      - Ref: AccessKeysRotatedParamMaxAccessKeyAge
