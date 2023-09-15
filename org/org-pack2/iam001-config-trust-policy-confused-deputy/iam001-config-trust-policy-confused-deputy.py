@@ -56,8 +56,6 @@ def evaluate_compliance(event, configuration_item, valid_rule_parameters):
             'Annotation': ' ',
             'OrderingTimestamp': str(datetime.datetime.now())
         }
-        print(json.dumps(event))
-        print(json.dumps(configuration_item))
         compliance_list = []
         policy_doc = json.loads(urllib.parse.unquote(configuration_item['configuration']['assumeRolePolicyDocument']))
         for x in policy_doc['Statement']:

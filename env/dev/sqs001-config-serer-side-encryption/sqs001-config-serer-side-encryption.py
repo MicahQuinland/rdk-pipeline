@@ -60,9 +60,6 @@ def evaluate_compliance(event, configuration_item, valid_rule_parameters):
             'OrderingTimestamp': str(datetime.datetime.now())
         }
 
-        print(json.dumps(event))
-        print(json.dumps(configuration_item))
-
         if 'KmsMasterKeyId' in configuration_item['configuration']:
             return 'COMPLIANT'
 
