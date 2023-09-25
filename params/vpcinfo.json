@@ -1,10 +1,10 @@
 {
   "us-east-1": {
-    "lambda-subnets": "subnet-xxx,subnet-xxx,subnet-xxx",
-    "lambda-security-groups": "sg-xxx"
+    "lambda-subnets": "subnet-069d68d442d2d6775,subnet-0d67550c424db2e21,subnet-0b6910073b1c712b3",
+    "lambda-security-groups": "sg-00e4cbaa3acec74ff"
   },
   "us-west-2": {
-    "lambda-subnets": "subnet-xxx,subnet-xxx,subnet-xxx",
-    "lambda-security-groups": "sg-xxx"
+    "lambda-subnets": "subnet-0c1b5087741a0212a,subnet-0da22e32bd88fb5c0,subnet-0de9d1817319f2cec",
+    "lambda-security-groups": "sg-097790d73479dc119"
   }
 }
