@@ -5,6 +5,6 @@
   },
   "us-west-2": {
     "lambda-subnets": "subnet-0c1b5087741a0212a,subnet-0da22e32bd88fb5c0,subnet-0de9d1817319f2cec",
-    "lambda-security-groups": "sg-097790d73479dc119"
+    "lambda-security-groups": "sg-097790d73479dc119a"
   }
 }
