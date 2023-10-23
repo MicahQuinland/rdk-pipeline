@@ -1,0 +1,18 @@
+{
+  "Version": "1.0",
+  "Parameters": {
+    "RuleName": "stpfn002-config-xray-tracing-enabled",
+    "Description": "Checks if AWS Step Functions machine has X-Ray Tracing enabled. The rule is NON_COMPLIANT if a state machine does not have X-Ray Tracing enabled.",
+    "SourceRuntime": "python3.9",
+    "CodeKey": "stpfn002-config-xray-tracing-enabledus-east-1.zip",
+    "InputParameters": "{\"ExecutionRoleName\": \"AWSRDKLambdaRole\"}",
+    "OptionalParameters": "{}",
+    "SourceEvents": "AWS::StepFunctions::StateMachine"
+  },
+  "Tags": [
+    {
+      "Key": "RuleType",
+      "Value": "Custom"
+    }
+  ]
+}
