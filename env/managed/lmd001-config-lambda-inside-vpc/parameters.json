@@ -2,18 +2,51 @@
   "Version": "1.0",
   "Parameters": {
     "RuleName": "lmd001-config-lambda-inside-vpc",
-    "Description": "Checks if a Lambda function is allowed access to a virtual private cloud (VPC). The rule is NON_COMPLIANT if the Lambda function is not VPC enabled",
+    "Description": "lmd001-config-lambda-inside-vpc",
     "SourceRuntime": null,
     "CodeKey": null,
     "InputParameters": "{}",
     "OptionalParameters": "{}",
     "SourceEvents": "AWS::Lambda::Function",
-    "SourceIdentifier": "LAMBDA_INSIDE_VPC"
-  },
-  "Tags": [
-    {
-      "Key": "RuleType",
-      "Value": "Managed"
+    "SourceIdentifier": "LAMBDA_INSIDE_VPC",
+    "Remediation": {
+      "Automatic": true,
+      "ConfigRuleName": "lmd001-config-lambda-inside-vpc",
+      "Parameters": {
+        "AutomationAssumeRole": {
+          "StaticValue": {
+            "Values": [
+              {
+                "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/AutomationServiceRole"
+              }
+            ]
+          }
+        },
+        "FunctionName": {
+          "ResourceValue": {
+            "Value": "RESOURCE_ID"
+          }
+        },
+        "SecurityGroupIds": {
+          "StaticValue": {
+            "Values": [
+              "sg-004bb0511af7b524e"
+            ]
+          }
+        },
+        "SubnetIds": {
+          "StaticValue": {
+            "Values": [
+              "subnet-055965baecdd7b6e1",
+              "subnet-039a3f9de894f5b62"
+            ]
+          }
+        }
+      },
+      "ResourceType": "AWS::Lambda::Function",
+      "TargetId": "lmd001-MoveLambdaToVPC",
+      "TargetType": "SSM_DOCUMENT"
     }
-  ]
+  },
+  "Tags": "[]"
 }
