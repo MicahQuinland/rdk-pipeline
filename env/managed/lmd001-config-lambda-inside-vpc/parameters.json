@@ -12,6 +12,7 @@
     "Remediation": {
       "Automatic": true,
       "ConfigRuleName": "lmd001-config-lambda-inside-vpc",
+      "MaximumAutomaticAttempts": "1",
       "Parameters": {
         "AutomationAssumeRole": {
           "StaticValue": {
@@ -44,6 +45,7 @@
         }
       },
       "ResourceType": "AWS::Lambda::Function",
+      "RetryAttemptSeconds": "60",
       "TargetId": "lmd001-MoveLambdaToVPC",
       "TargetType": "SSM_DOCUMENT"
     }
