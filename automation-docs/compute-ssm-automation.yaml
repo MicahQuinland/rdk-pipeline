@@ -48,18 +48,69 @@ Resources:
             type: String
             description: (Required) The AWS Lambda function name.
             allowedPattern: ^[a-zA-Z0-9-_]+$
-          SubnetIds:
-            type: StringList
-            description: (Required) The Amazon VPC subnet ids.
-            allowedPattern: ^(subnet-[a-z0-9]{8,}[,;]?)+$
-          SecurityGroupIds:
-            type: StringList
-            description: (Required) The Amazon EC2 security group ids.
-            allowedPattern: ^(sg-[a-z0-9]{8,}[,;]?)+$
 
         outputs:
           - UpdateFunctionVPCConfiguration.Response
         mainSteps:
+          - name: VPCLookUp
+            action: "aws:executeScript"
+            description: |
+              ## VPCLookUp
+              Attempts to look up VPC for Lambda Configuration
+              ## Outputs
+              * Output: VPCID, SubnetIDs, SecurityGroupID
+            isEnd: false
+            timeoutSeconds: 600
+            inputs:
+              Runtime: python3.8
+              Handler: handler
+              Script: |-
+                import boto3
+                ec2_client = boto3.client('ec2')
+                def get_vpc_ids():
+                    response = ec2_client.describe_vpcs()
+                    return [vpc['VpcId'] for vpc in response['Vpcs']]
+
+                def list_subnets(vpc_id):
+                    response = ec2_client.describe_subnets(Filters=[{'Name': 'vpc-id','Values': [vpc_id]}])
+                    return [subnet['SubnetId'] for subnet in response['Subnets']]
+
+                def list_security_groups(vpc_id):
+                    response = ec2_client.describe_security_groups(Filters=[{'Name': 'vpc-id','Values': [vpc_id]}])
+                    return [group['GroupId'] for group in response['SecurityGroups']]
+
+                def lambda_handler(event, context):   
+                    vpc_ids = get_vpc_ids()
+                    if not vpc_ids:
+                        raise Exception("REMEDIATION FAILED. {} LAMBDA FUNCTION ACCOUNT DOES NOT HAVE A VPC".format(context.function_name))
+                    subnet_ids = list_subnets(vpc_ids[0])
+                    if not subnet_ids:
+                        raise Exception("REMEDIATION FAILED. {} LAMBDA FUNCTION ACCOUNT DOES NOT HAVE A SUBNET ".format(context.function_name))  
+                    security_group_ids = list_security_groups(vpc_ids[0])
+                    if not security_group_ids:
+                        raise Exception("REMEDIATION FAILED. {} LAMBDA FUNCTION ACCOUNT DOES NOT HAVE A SECURITY GROUP ".format(context.function_name))  
+
+                    # Reduce returned IDs to needed amount
+                    if len(vpc_ids) > 1:
+                        vpc_ids = vpc_ids[0]
+                    if len(subnet_ids) > 2:
+                        subnet_ids = subnet_ids[:2]
+                    elif len(subnet_ids) == 1:
+                        subnet_ids = subnet_ids[0]
+                    if len(security_group_ids) > 1:
+                        security_group_ids = security_group_ids[0]
+
+                    return {
+                        "output": {
+                            "VPCID": vpc_ids,
+                            "SubnetIDs": subnet_ids,
+                            "SecurityGroupIDs": security_group_ids
+                        }
+                    }       
+            outputs:
+              - Name: Output
+                Selector: $.Payload.output
+                Type: StringMap
           -
             name: UpdateFunctionVPCConfiguration
             action: "aws:executeAwsApi"
@@ -75,8 +126,8 @@ Resources:
               Api: UpdateFunctionConfiguration
               FunctionName: "{{FunctionName}}"
               VpcConfig:
-                SecurityGroupIds: "{{ SecurityGroupIds }}"
-                SubnetIds: "{{ SubnetIds }}"
+                SecurityGroupIds: "{{ VPCLookUp.Output.SecurityGroupIDs }}"
+                SubnetIds: "{{ VPCLookUp.Output.SubnetIDs }}"
             outputs:
               - Name: Response
                 Selector: $
@@ -111,8 +162,8 @@ Resources:
               Handler: handler
               InputPayload:
                 FunctionName: "{{ FunctionName }}"
-                SecurityGroupIds: "{{ SecurityGroupIds }}"
-                SubnetIds: "{{ SubnetIds }}"
+                SecurityGroupIds: "{{ VPCLookUp.Output.SecurityGroupIDs }}"
+                SubnetIds: "{{ VPCLookUp.Output.SubnetIDs }}"
               Script: |-
                 import boto3
                 def verifySecurityGroups(lambda_config_details, security_group_ids):
