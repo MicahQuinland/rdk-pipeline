@@ -63,7 +63,7 @@ Resources:
             timeoutSeconds: 600
             inputs:
               Runtime: python3.8
-              Handler: handler
+              Handler: lambda_handler
               Script: |-
                 import boto3
                 ec2_client = boto3.client('ec2')

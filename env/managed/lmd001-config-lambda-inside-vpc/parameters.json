@@ -27,21 +27,6 @@
           "ResourceValue": {
             "Value": "RESOURCE_ID"
           }
-        },
-        "SecurityGroupIds": {
-          "StaticValue": {
-            "Values": [
-              "sg-004bb0511af7b524e"
-            ]
-          }
-        },
-        "SubnetIds": {
-          "StaticValue": {
-            "Values": [
-              "subnet-055965baecdd7b6e1",
-              "subnet-039a3f9de894f5b62"
-            ]
-          }
         }
       },
       "ResourceType": "AWS::Lambda::Function",
