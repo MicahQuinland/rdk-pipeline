@@ -90,21 +90,23 @@ Resources:
                     if not security_group_ids:
                         raise Exception("REMEDIATION FAILED. {} LAMBDA FUNCTION ACCOUNT DOES NOT HAVE A SECURITY GROUP ".format(context.function_name))  
 
+                    subnet_ids = ["one1","two1","three1"]
+                    #subnet_ids = ["one1"]
+                    security_group_ids = ["one2","two2","three2"]
+                    #security_group_ids = ["one2"]
+
                     # Reduce returned IDs to needed amount
-                    if len(vpc_ids) > 1:
-                        vpc_ids = vpc_ids[0]
                     if len(subnet_ids) > 2:
                         subnet_ids = subnet_ids[:2]
+                        subnet_ids = ','.join(subnet_ids)
                     elif len(subnet_ids) == 1:
-                        subnet_ids = subnet_ids[0]
-                    if len(security_group_ids) > 1:
-                        security_group_ids = security_group_ids[0]
+                        subnet_ids = str(subnet_ids[0])
 
                     return {
                         "output": {
-                            "VPCID": vpc_ids,
+                            "VPCID": str(vpc_ids[0]),
                             "SubnetIDs": subnet_ids,
-                            "SecurityGroupIDs": security_group_ids
+                            "SecurityGroupID": str(security_group_ids[0])
                         }
                     }       
             outputs:
