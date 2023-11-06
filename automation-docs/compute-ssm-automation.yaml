@@ -101,7 +101,7 @@ Resources:
                         "output": {
                             "VPCID": str(vpc_ids[0]),
                             "SubnetIDs": subnet_ids,
-                            "SecurityGroupID": str(security_group_ids[0])
+                            "SecurityGroupIDs": str(security_group_ids[0])
                         }
                     }       
             outputs:
