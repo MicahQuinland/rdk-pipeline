@@ -94,14 +94,20 @@ Resources:
                     elif len(subnet_ids) == 1:
                         subnet_ids = str(subnet_ids[0])
 
+                    # return {
+                    #     "output": {
+                    #         "VPCID": str(vpc_ids[0]),
+                    #         "SubnetIDs": subnet_ids,
+                    #         "SecurityGroupIDs": str(security_group_ids[0])
+                    #     }
+                    # }
+
                     # SSM requires stringlist
                     return {
-                        "output": {
-                            "VPCID": str(vpc_ids[0]),
-                            "SubnetIDs": subnet_ids,
-                            "SecurityGroupIDs": str(security_group_ids[0])
+                        "output": {                          
+                            "SubnetIDs": subnet_ids
                         }
-                    }       
+                    }      
             outputs:
               - Name: Output
                 Selector: $.Payload.output
@@ -121,7 +127,7 @@ Resources:
               Api: UpdateFunctionConfiguration
               FunctionName: "{{FunctionName}}"
               VpcConfig:
-                SecurityGroupIds: "{{ VPCLookUp.Output.SecurityGroupIDs }}"
+                SecurityGroupIds: "sg-004bb0511af7b524e"
                 SubnetIds: "{{ VPCLookUp.Output.SubnetIDs }}"
             outputs:
               - Name: Response
@@ -157,7 +163,7 @@ Resources:
               Handler: handler
               InputPayload:
                 FunctionName: "{{ FunctionName }}"
-                SecurityGroupIds: "{{ VPCLookUp.Output.SecurityGroupIDs }}"
+                SecurityGroupIds: "sg-004bb0511af7b524e"
                 SubnetIds: "{{ VPCLookUp.Output.SubnetIDs }}"
               Script: |-
                 import boto3
