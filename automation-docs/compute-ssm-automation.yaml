@@ -90,28 +90,22 @@ Resources:
 
                     # Return two subnets for availability if possible
                     if len(subnet_ids) > 1:
-                        subnet_ids = ','.join(subnet_ids[:2])
+                        subnet_ids = subnet_ids[:2]
                     elif len(subnet_ids) == 1:
-                        subnet_ids = str(subnet_ids[0])
+                        subnet_ids = subnet_ids[0]
 
-                    # return {
-                    #     "output": {
-                    #         "VPCID": str(vpc_ids[0]),
-                    #         "SubnetIDs": subnet_ids,
-                    #         "SecurityGroupIDs": str(security_group_ids[0])
-                    #     }
-                    # }
-
-                    # SSM requires stringlist
                     return {
-                        "output": {                          
-                            "SubnetIDs": subnet_ids
-                        }
-                    }      
+                        "VPCID": vpc_ids[0],
+                        "SubnetIDs": subnet_ids,
+                        "SecurityGroupIDs": security_group_ids[:1]
+                    }        
             outputs:
-              - Name: Output
-                Selector: $.Payload.output
-                Type: StringMap
+              - Name: SecurityGroupIDs
+                Selector: $.Payload.SecurityGroupIDs
+                Type: StringList
+              - Name: SubnetIDs
+                Selector: $.Payload.SubnetIDs
+                Type: StringList             
           -
             name: UpdateFunctionVPCConfiguration
             action: "aws:executeAwsApi"
@@ -127,8 +121,8 @@ Resources:
               Api: UpdateFunctionConfiguration
               FunctionName: "{{FunctionName}}"
               VpcConfig:
-                SecurityGroupIds: "sg-004bb0511af7b524e"
-                SubnetIds: "{{ VPCLookUp.Output.SubnetIDs }}"
+                SecurityGroupIds: "{{ VPCLookUp.SecurityGroupIDs }}"
+                SubnetIds: "{{ VPCLookUp.SubnetIDs }}"
             outputs:
               - Name: Response
                 Selector: $
@@ -163,8 +157,8 @@ Resources:
               Handler: handler
               InputPayload:
                 FunctionName: "{{ FunctionName }}"
-                SecurityGroupIds: "sg-004bb0511af7b524e"
-                SubnetIds: "{{ VPCLookUp.Output.SubnetIDs }}"
+                SecurityGroupIds: "{{ VPCLookUp.SecurityGroupIDs }}"
+                SubnetIds: "{{ VPCLookUp.SubnetIDs }}"
               Script: |-
                 import boto3
                 def verifySecurityGroups(lambda_config_details, security_group_ids):
