@@ -32,8 +32,6 @@ Resources:
           ## Input Parameters
           * AutomationAssumeRole: (Required) The ARN of the role that allows Automation to perform the actions on your behalf.
           * FunctionName: (Required) The AWS Lambda function name.
-          * SubnetIds: (Required) The Amazon VPC subnet ids.
-          * SecurityGroupIds: (Required) The Amazon EC2 security group ids.
 
           ## Output Parameters
           * UpdateFunctionVPCConfiguration.Response: The standard HTTP response from the UpdateFunctionConfiguration API call.
@@ -58,7 +56,7 @@ Resources:
               ## VPCLookUp
               Attempts to look up VPC for Lambda Configuration
               ## Outputs
-              * Output: VPCID, SubnetIDs, SecurityGroupID
+              * Output: VPCID, SubnetIDs, SecurityGroupIDs
             isEnd: false
             timeoutSeconds: 600
             inputs:
