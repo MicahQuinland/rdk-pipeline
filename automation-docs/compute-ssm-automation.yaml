@@ -90,18 +90,13 @@ Resources:
                     if not security_group_ids:
                         raise Exception("REMEDIATION FAILED. {} LAMBDA FUNCTION ACCOUNT DOES NOT HAVE A SECURITY GROUP ".format(context.function_name))  
 
-                    subnet_ids = ["one1","two1","three1"]
-                    #subnet_ids = ["one1"]
-                    security_group_ids = ["one2","two2","three2"]
-                    #security_group_ids = ["one2"]
-
-                    # Reduce returned IDs to needed amount
-                    if len(subnet_ids) > 2:
-                        subnet_ids = subnet_ids[:2]
-                        subnet_ids = ','.join(subnet_ids)
+                    # Return two subnets for availability if possible
+                    if len(subnet_ids) > 1:
+                        subnet_ids = ','.join(subnet_ids[:2])
                     elif len(subnet_ids) == 1:
                         subnet_ids = str(subnet_ids[0])
 
+                    # SSM requires stringlist
                     return {
                         "output": {
                             "VPCID": str(vpc_ids[0]),
